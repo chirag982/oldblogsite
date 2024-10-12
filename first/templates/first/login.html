@@ -1,8 +1,56 @@
 {% extends 'first/index.html' %}
 
 {% block style %}
+<style>
+    #body-containerX {
+        background-color: white;
+        margin-top: 5%;
+        margin-left: 20%;
+        margin-right: 20%;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    
+    #body-containerX-head {
+        text-align: center;
+        font-family: cursive;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+    }
+    
+    #body-containerX-head h1 {
+        padding: 5px;
+    }
+    
+    #body-containerX-body {
+        text-align: center;
+    }
+    
+    #body-containerX-body input {
+        height: 30px;
+        width: 50%;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
-<h1>LogIn</h1>
+<div id="body-containerX">
+    <div id="body-containerX-head">
+        <h1>Login</h1>
+    </div>
+    <hr>
+    <div id="body-containerX-body">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="email" placeholder="email">
+            <br>
+            <br>
+            <input type="password" name="password" placeholder="password">
+            <hr>
+            <button class="btn btn-dark">Login</button>
+            <p>Not having an account?<a href="{% url 'signup' %}">SignUp</a></p>
+        </form>
+    </div>
+</div>
 {% endblock %}

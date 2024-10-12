@@ -45,9 +45,9 @@
             <a href="{% url 'index' %}"><img src="{% static 'images/Blog.png' %}"></a>
         </div>
         <div id="buttons-nav">
-            <button>SignUp</button>
-            <button>LogIn</button>
-            <button>About Us</button>
+            <a href="{% url 'signup' %}"><button>SignUp</button></a>
+            <a href="{% url 'login' %}"><button>LogIn</button></a>
+            <a href="#"><button>About Us</button></a>
         </div>
     </div>
     {% block content %} {% endblock %}
