@@ -1,12 +1,30 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirect
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.urls import reverse
+
 
 # Create your views here.
 def index(request):
     return render(request, 'beforelogin/index.html')
 
+def home(request, username):
+    return render(request, "afterlogin/home.html")
+
 def login(request):
-    return render(request, 'beforelogin/login.html')
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        if user :
+            return redirect(reverse(home, args=[username]))
+        else:
+            return render(request, 'beforelogin/login.html', {
+                "message": "Wrong Credentials."
+            })
+    else:
+        return render(request, 'beforelogin/login.html')
+
 
 def signup(request):
     if request.method == "POST":

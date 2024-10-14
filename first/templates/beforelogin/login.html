@@ -49,4 +49,8 @@
         </form>
     </div>
 </div>
-{% endblock %}
+{% if message %}
+<script>
+    alert("{{message}}" + "\nTry again")
+</script>
+{% endif %} {% endblock %}
