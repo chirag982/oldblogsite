@@ -1,6 +1,4 @@
-{% extends 'first/index.html' %}
-
-{% block style %}
+{% extends 'beforelogin/index.html' %} {% block style %}
 <style>
     #body-containerX {
         background-color: white;
@@ -32,30 +30,22 @@
         width: 50%;
     }
 </style>
-{% endblock %}
-
-{% block content %}
+{% endblock %} {% block content %}
 <div id="body-containerX">
     <div id="body-containerX-head">
-        <h1>SignUp</h1>
+        <h1>Login</h1>
     </div>
     <hr>
     <div id="body-containerX-body">
-        <form method="post" action="{% url 'signup' %}">
+        <form action="{% url 'login' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="name" placeholder="name">
+            <input type="username" name="username" placeholder="UserName">
             <br>
             <br>
-            <input type="text" name="email" placeholder="email">
-            <br>
-            <br>
-            <input type="password" name="password" placeholder="password">
-            <br>
-            <br>
-            <input type="password" name="re-password" placeholder="re-enter password">
+            <input type="password" name="password" placeholder="Password">
             <hr>
-            <button class="btn btn-dark">SignUp</button>
-            <p>Already having an account?<a href="{% url 'login' %}">Login</a></p>
+            <button class="btn btn-dark">Login</button>
+            <p>Not having an account?<a href="{% url 'signup' %}">SignUp</a></p>
         </form>
     </div>
 </div>
