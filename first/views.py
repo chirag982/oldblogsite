@@ -3,22 +3,25 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
 
 
 # Create your views here.
 def index(request):
     return render(request, 'beforelogin/index.html')
 
+
 @login_required
 def home(request, username):
     return render(request, "afterlogin/home.html")
 
-def login(request):
+def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
-        user = authenticate(username=username, password=password)
-        if user :
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
             return redirect(reverse(home, args=[username]))
         else:
             return render(request, 'beforelogin/login.html', {
@@ -28,7 +31,7 @@ def login(request):
         return render(request, 'beforelogin/login.html')
 
 
-def signup(request):
+def signup_view(request):
     if request.method == "POST":
         username = request.POST["username"]
         email = request.POST["email"]

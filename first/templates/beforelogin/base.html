@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,23 +14,28 @@
             display: flex;
             justify-content: space-between;
         }
+        
         body {
             background-image: url("{% static 'images/Revisiting.png' %}");
             background-repeat: no-repeat;
             background-position: fixed;
         }
+        
         * {
             margin: 0;
         }
-        #buttons-nav button{
+        
+        #buttons-nav button {
             font-family: cursive;
             color: darkcyan;
             border-radius: 10px;
             padding: 7px;
         }
+        
         #buttons-nav {
             padding: 5px;
         }
+        
         #logo-nav {
             color: white;
             font-family: fantasy;
@@ -39,6 +45,7 @@
     </style>
     {% block style %} {% endblock %}
 </head>
+
 <body>
     <div class="heading">
         <div id="logo-nav">
@@ -52,4 +59,5 @@
     </div>
     {% block content %} {% endblock %}
 </body>
+
 </html>
