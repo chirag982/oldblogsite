@@ -2,12 +2,14 @@ from django.shortcuts import render, HttpResponse, HttpResponseRedirect, redirec
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def index(request):
     return render(request, 'beforelogin/index.html')
 
+@login_required
 def home(request, username):
     return render(request, "afterlogin/home.html")
 
@@ -38,8 +40,7 @@ def signup(request):
         else:
             user = User.objects.create_user(username, email, password)
             return render(request, "beforelogin/login.html", {
-                "message": "User created Successfully.",
-                "username": user.username
+                "message": "User created Successfully."
             })    
     else:
         return render(request, 'beforelogin/signup.html')
