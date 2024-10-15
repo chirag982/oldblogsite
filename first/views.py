@@ -13,7 +13,9 @@ def index(request):
 
 @login_required
 def home(request, username):
-    return render(request, "afterlogin/home.html")
+    return render(request, "afterlogin/home.html", {
+        "username":username
+    })
 
 def login_view(request):
     if request.method == "POST":
