@@ -4,11 +4,27 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Blog
+from .models import Blog, Person
 
 # Create your views here.
 def index(request):
     return render(request, 'beforelogin/index.html')
+
+@login_required
+def details(request):
+    username = request.user.username
+    person = Person.objects.get(uname = username)
+    return render(request, "afterlogin/details.html", {
+        "person":person
+    })
+
+@login_required
+def profile(request):
+    username = request.user.username
+    person = Person.objects.get(uname = username)
+    return render(request, "afterlogin/profile.html", {
+        "person":person
+    })
 
 @login_required
 def add(request):
@@ -53,6 +69,7 @@ def login_view(request):
 def signup_view(request):
     if request.method == "POST":
         username = request.POST["username"]
+        name = request.POST["name"]
         email = request.POST["email"]
         password = request.POST["password"]
         if (User.objects.filter(username=username).exists()):
@@ -61,6 +78,8 @@ def signup_view(request):
                     })
         else:
             user = User.objects.create_user(username, email, password)
+            person = Person.objects.create(uname = username, name=name, email = email)
+            person.save()
             return render(request, "beforelogin/login.html", {
                 "message": "User created Successfully."
             })    
