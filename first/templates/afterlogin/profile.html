@@ -73,23 +73,23 @@
         <div class="first-column-two">
             <div>
                 <b>Website</b>
-                <p>link goes here</p>
+                <p>{{person.website}}</p>
             </div>
             <div>
                 <b>github</b>
-                <p>link goes here</p>
+                <a href="{{person.github}}"><p>{{person.github}}</p></a>
             </div>
             <div>
                 <b>LinkedIn</b>
-                <p>link goes here</p>
+                <p>{{person.linkedin}}</p>
             </div>
             <div>
                 <b>Instagram</b>
-                <p>link goes here</p>
+                <p>{{person.instagram}}</p>
             </div>
             <div>
                 <b>Twitter</b>
-                <p>link goes here</p>
+                <a><p>{{person.twiiter}}</p></a>
             </div>
         </div>
     </div>
@@ -122,6 +122,7 @@
     </div>
 </div>
 <div id="button-edit">
-    <a href="{% url 'details' %}"><button>Edit Your Details</button></a>
+    <a href="{% url 'details' %}"><button class="btn btn-dark">Edit Your Details</button></a>
+    <br><br>
 </div>
 {% endblock %}

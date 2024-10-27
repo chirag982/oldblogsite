@@ -17,14 +17,7 @@ def about(request):
 def logout_view(request):
     logout(request)
     return redirect(reverse(index))
-
-@login_required
-def details(request):
-    username = request.user.username
-    person = Person.objects.get(uname = username)
-    return render(request, "afterlogin/details.html", {
-        "person":person
-    })
+    
 
 @login_required
 def profile(request):
@@ -33,6 +26,29 @@ def profile(request):
     return render(request, "afterlogin/profile.html", {
         "person":person
     })
+
+@login_required
+def details(request):
+    if request.method == "POST":
+        uname = request.user.username
+        name = request.POST["name"]
+        college = request.POST["college"]
+        year = request.POST["year"]
+        department = request.POST["department"]
+        website = request.POST["website"]
+        github = request.POST["github"]
+        instagram = request.POST["instagram"]
+        linkedin = request.POST["linkedin"]
+        twitter = request.POST["twitter"]
+        Person.objects.filter(uname=uname).update(name=name, college=college, year_studying_in=year, department=department,
+                                                  website = website, github=github, instagram=instagram, linkedin=linkedin, twiiter= twitter)
+        return redirect(reverse(profile))    
+    else:
+        username = request.user.username
+        person = Person.objects.get(uname = username)
+        return render(request, "afterlogin/details.html", {
+            "person":person
+        })
 
 @login_required
 def add(request):
@@ -56,8 +72,6 @@ def home(request, username):
 def feed(request):
     return redirect(reverse(home, args=[request.user.username]))
 
-
-
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -72,7 +86,6 @@ def login_view(request):
             })
     else:
         return render(request, 'beforelogin/login.html')
-
 
 def signup_view(request):
     if request.method == "POST":

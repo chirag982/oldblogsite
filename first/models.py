@@ -17,6 +17,11 @@ class Person(models.Model):
     year_studying_in = models.CharField(max_length=10)
     college = models.CharField(max_length=100, blank=True)
     community = models.CharField(max_length=100, blank=True)
+    website = models.CharField(max_length=1000, blank=True)
+    github = models.CharField(max_length=1000, blank=True)
+    linkedin = models.CharField(max_length=1000, blank=True)
+    instagram = models.CharField(max_length=1000, blank=True)
+    twiiter = models.CharField(max_length=1000, blank=True)
 
     def __str__(self):
         return f"{self.uname} : {self.name}"

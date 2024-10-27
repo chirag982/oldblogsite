@@ -1,10 +1,48 @@
 {% extends 'afterlogin/base1.html' %} {% block style %}
 <style>
-
+    #details {
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 5px;
+        margin-top: 1%;
+    }
+    #details h1 {
+        
+        text-align: center;
+        color: darkcyan;
+    }
 </style>
 {% endblock %} {% block content %}
-<div>
-    <h1>{{person.name}}</h1>
-    <h1>{{username}}</h1>
+<div id="details">
+    <h1>{{person.uname}}</h1>
+    <form method="post" action="{% url 'details' %}">
+        {% csrf_token %}
+        <div id="update">
+            <lable>UserName:</lable><input type="text" name="username" value="{{person.uname}}" disabled>
+            <hr>
+            <label>Full Name:</label><input type="text" name="name" value="{{person.name}}">
+            <hr>
+            <label>Email:</label><input type="text" name="email" value="{{person.email}}" disabled>
+            <hr>
+            <label>College:</label><input type="text" name="college" value="{{person.college}}">
+            <hr>
+            <label>Department:</label><input type="text" name="department" value="{{person.department}}">
+            <hr>
+            <label>Year Studying in:</label><input type="text" name="year" value="{{person.year_studying_in}}">
+            <hr>
+            <label>Website Link:</label><input type="text" name="website" value="{{person.website}}">
+            <hr>
+            <label>Github Link:</label><input type="text" name="github" value="{{person.github}}">
+            <hr>
+            <label>Linkedin link:</label><input type="text" name="linkedin" value="{{person.linkedin}}">
+            <hr>
+            <label>Instagram:</label><input type="text" name="instagram" value="{{person.instagram}}">
+            <hr>
+            <label>Twitter:</label><input type="text" name="twitter" value="{{person.twiiter}}">
+            <hr>
+            <button class="btn btn-dark">Submit</button>
+        </div>
+    </form>
+    
 </div>
 {% endblock %}
