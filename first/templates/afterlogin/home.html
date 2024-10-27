@@ -1,0 +1,29 @@
+{% extends 'afterlogin/base1.html' %} {% block style %}
+<style>
+    #main-card-container {
+        margin-left: 5%;
+        margin-right: 5%;
+        width: 85%;
+    }
+    
+    h1 {
+        text-align: center;
+        color: cadetblue;
+    }
+</style>
+{% endblock %} {% block content %}
+<h1>Posts</h1>
+<div id="main-card-container">
+    {% for b in blog %}
+    <ul>
+        <li>
+            <div>
+                <h5>{{b.uname}}</h5>
+                <p><i>{{b.post}}</i></p>
+            </div>
+        </li>
+        <hr>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'beforelogin/index.html' %} {% block style %}
+<style>
+    #body-containerX {
+        background-color: white;
+        margin-top: 5%;
+        margin-left: 20%;
+        margin-right: 20%;
+        border-radius: 10px;
+        padding: 5px;
+    }
+    
+    #body-containerX-head {
+        text-align: center;
+        font-family: cursive;
+        background-color: black;
+        color: white;
+        border-radius: 10px;
+    }
+    
+    #body-containerX-head h1 {
+        padding: 5px;
+    }
+    
+    #body-containerX-body {
+        text-align: center;
+    }
+    
+    #body-containerX-body input {
+        height: 30px;
+        width: 50%;
+    }
+</style>
+{% endblock %} {% block content %}
+<div id="body-containerX">
+    <div id="body-containerX-head">
+        <h1>SignUp</h1>
+    </div>
+    <hr>
+    <div id="body-containerX-body">
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="UserName">
+            <br>
+            <br>
+            <input type="text" name="name" placeholder="Name">
+            <br>
+            <br>
+            <input type="text" name="email" placeholder="Email">
+            <br>
+            <br>
+            <input type="password" name="password" placeholder="Password">
+            <br>
+            <br>
+            <input type="password" name="re-password" placeholder="Confirm Password">
+            <hr>
+            <button class="btn btn-dark">SignUp</button>
+            <p>Already having an account?<a href="{% url 'login' %}">Login</a></p>
+        </form>
+    </div>
+</div>
+{% if message %}
+<script>
+    alert("{{message}}")
+</script>
+{% endif %} {% endblock %}

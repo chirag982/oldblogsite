@@ -1,0 +1,42 @@
+{% extends 'afterlogin/base1.html' %} {% block style %}
+<style>
+    h1 {
+        text-align: center;
+        color: cadetblue;
+    }
+    
+    #form-post {
+        padding: 5px;
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 5%;
+        margin-left: 15%;
+        margin-right: 15%;
+        background-color: orange;
+    }
+    
+    #form-post h4 {
+        background-color: black;
+        color: white;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    
+    #form-post textarea {
+        width: 80%;
+        height: 20vh;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %} {% block content %}
+<h1>Create a new Post</h1>
+<div id="form-post">
+    <form method="post" action="{% url 'add' %}">
+        {% csrf_token %}
+        <h4>What's on your mind {{username}}!</h4>
+        <textarea placeholder="Type your Thought Here!" name="post"></textarea>
+        <br>
+        <button class="btn btn-dark">post</button>
+    </form>
+</div>
+{% endblock %}
