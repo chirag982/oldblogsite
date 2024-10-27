@@ -47,7 +47,7 @@
         }
         
         .left-container {
-            background-color: cadetblue;
+            background-color: orange;
             position: fixed;
             height: 100%;
             width: 20%;
@@ -55,8 +55,7 @@
         }
         
         .left-container a:link {
-            color: black;
-            background-color: cadetblue;
+            background-color: orange;
             width: 100%;
             border-radius: 10px;
             padding: 10px 20px;
@@ -81,16 +80,16 @@
 <body>
     <div class="heading">
         <div id="logo-nav">
-            <a href="{% url 'index' %}"><img src="{% static 'images/Blog.png' %}"></a>
+            <a href="{% url 'feed' %}"><img src="{% static 'images/Blog.png' %}"></a>
         </div>
         <div id="buttons-nav">
-            <a href="#"><button>Logout</button></a>
+            <a href="{% url 'logout' %}"><button>Logout</button></a>
         </div>
     </div>
     <div class="main-container">
         <div class="left-container">
             <a href="{% url 'profile' %}">👨🏻‍💼 Profile</a>
-            <a href="{% url 'feed' %}">🏠︎ Home</a>
+            <a href="{% url 'feed' %}">🏠︎ Home/Feed</a>
             <a href="{% url 'add' %}">💬 Post</a>
             <a href="#">👫 Friends</a>
             <a href="#">🌐 Communities</a>
