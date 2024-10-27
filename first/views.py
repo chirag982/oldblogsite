@@ -10,6 +10,10 @@ from .models import Blog, Person
 def index(request):
     return render(request, 'beforelogin/index.html')
 
+@login_required
+def about(request):
+    return render(request, "afterlogin/about.html")
+
 def logout_view(request):
     logout(request)
     return redirect(reverse(index))
