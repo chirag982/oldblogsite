@@ -15,9 +15,12 @@
 {% endblock %} {% block content %}
 <div id="details">
     <h1>{{person.uname}}</h1>
-    <form method="post" action="{% url 'details' %}">
+    <form method="post" action="{% url 'details' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="update">
+            <label>Add Image:</label><input type="file" name="image" value="{{person.image}}">
+            <p>{{person.image.url}}</p>
+            <hr>
             <lable>UserName:</lable><input type="text" name="username" value="{{person.uname}}" disabled>
             <hr>
             <label>Full Name:</label><input type="text" name="name" value="{{person.name}}">

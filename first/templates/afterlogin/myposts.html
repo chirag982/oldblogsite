@@ -15,13 +15,12 @@
     }
 </style>
 {% endblock %} {% block content %}
-<h1>Posts</h1>
+<h1>What all I Postsed</h1>
 <div id="main-card-container">
     {% for b in blog %}
-
         <h6>{{b.uname}}</h6>
         <p><i>{{b.post}}</i></p>
-        <label>{{b.time}}</label>
+        <p>{{b.time}}</p>
         <hr>
     {% endfor %}
 </div>

@@ -1,12 +1,14 @@
-from django.db import models
+from django.db import models 
 
 # Create your models here.
 class Blog(models.Model):
     uname = models.CharField(max_length=64)
     post = models.CharField(max_length=2000)
+    time = models.DateTimeField(auto_now_add=True)
 
 class Person(models.Model):
     uname = models.CharField(max_length=64, blank=False)
+    image = models.ImageField(upload_to = '', blank=True)
     name = models.CharField(max_length=64, blank=False)
     tagline = models.CharField(max_length=200, blank=True)
     bio = models.CharField(max_length=1000, blank=True)
@@ -25,3 +27,4 @@ class Person(models.Model):
 
     def __str__(self):
         return f"{self.uname} : {self.name}"
+    

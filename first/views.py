@@ -11,9 +11,40 @@ def index(request):
     return render(request, 'beforelogin/index.html')
 
 @login_required
+def find(request):
+    if request.method == "POST":
+        find = request.POST["find"]
+        if Person.objects.filter(uname=find):
+            p = Person.objects.get(uname=find)
+            return render(request, "afterlogin/find.html", {
+                "person": p
+            })
+        return render(request, "afterlogin/find.html", {
+            "message":"No such user found! Please enter the correct username."
+        })
+    else:
+        return render(request, "afterlogin/find.html")
+
+@login_required
+def people(request, check):
+    p = Person.objects.get(uname=check)
+    return render(request, "afterlogin/people.html", {
+            "person":p
+        })
+
+@login_required
+def check(request):
+    if request.method == "POST":
+        p = request.POST["check"]
+        return redirect(people, check=p)
+    else:
+        return redirect(reverse(find))
+
+@login_required
 def about(request):
     return render(request, "afterlogin/about.html")
 
+@login_required
 def logout_view(request):
     logout(request)
     return redirect(reverse(index))
@@ -23,6 +54,7 @@ def logout_view(request):
 def profile(request):
     username = request.user.username
     person = Person.objects.get(uname = username)
+    print(person.image.url)
     return render(request, "afterlogin/profile.html", {
         "person":person
     })
@@ -31,6 +63,7 @@ def profile(request):
 def details(request):
     if request.method == "POST":
         uname = request.user.username
+        image = request.FILES["image"]
         name = request.POST["name"]
         college = request.POST["college"]
         year = request.POST["year"]
@@ -40,9 +73,23 @@ def details(request):
         instagram = request.POST["instagram"]
         linkedin = request.POST["linkedin"]
         twitter = request.POST["twitter"]
-        Person.objects.filter(uname=uname).update(name=name, college=college, year_studying_in=year, department=department,
-                                                  website = website, github=github, instagram=instagram, linkedin=linkedin, twiiter= twitter)
-        return redirect(reverse(profile))    
+
+        person = Person.objects.filter(uname=uname)
+        p = Person.objects.get(uname=uname)
+        p.name = name
+        p.college = college
+        p.year_studying_in = year
+        p.department=department
+        p.website = website
+        if image:
+            p.image = image
+        p.github=github
+        p.instagram=instagram
+        p.linkedin=linkedin
+        p.twiiter= twitter
+        p.save()
+        return redirect(reverse(profile))
+       
     else:
         username = request.user.username
         person = Person.objects.get(uname = username)
@@ -65,7 +112,15 @@ def add(request):
 @login_required
 def home(request, username):
     return render(request, "afterlogin/home.html", {
-        "blog":Blog.objects.all()
+        "blog":Blog.objects.all().order_by('-time').values()
+    })
+
+@login_required
+def myposts(request):
+    username = request.user.username
+    b = Blog.objects.filter(uname=username)
+    return render(request, "afterlogin/myposts.html", {
+        "blog": b
     })
 
 @login_required
