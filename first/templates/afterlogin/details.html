@@ -18,8 +18,7 @@
     <form method="post" action="{% url 'details' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="update">
-            <label>Add Image:</label><input type="file" name="image" value="{{person.image}}">
-            <p>{{person.image.url}}</p>
+            <label>Add Image:</label><input type="file" name="image">
             <hr>
             <lable>UserName:</lable><input type="text" name="username" value="{{person.uname}}" disabled>
             <hr>
@@ -32,6 +31,13 @@
             <label>Department:</label><input type="text" name="department" value="{{person.department}}">
             <hr>
             <label>Year Studying in:</label><input type="text" name="year" value="{{person.year_studying_in}}">
+            <hr>
+            <label>Community:</label>
+            <select name="community">
+                <option value="GNDU, Amritsar">GNDU, Amritsar</option>
+                <option value="GNDU, Gurdaspur">GNDU, Gurdaspur</option>
+                <option value="GNDU, Jalandhar">GNDU, Jalandhar</option>
+            </select>
             <hr>
             <label>Website Link:</label><input type="text" name="website" value="{{person.website}}">
             <hr>
@@ -48,4 +54,9 @@
     </form>
     
 </div>
+{% if message %}
+<script>
+    alert("{{message}}")
+</script>
+{% endif %}
 {% endblock %}

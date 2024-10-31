@@ -54,20 +54,30 @@ def logout_view(request):
 def profile(request):
     username = request.user.username
     person = Person.objects.get(uname = username)
-    print(person.image.url)
     return render(request, "afterlogin/profile.html", {
         "person":person
+    })
+
+@login_required
+def community(request):
+    user = request.user.username
+    person = Person.objects.get(uname = user)
+    blog = Blog.objects.filter(community = person.community).order_by('-time')
+    return render(request, "afterlogin/community.html",{
+        "person":person,
+        "blog":blog
     })
 
 @login_required
 def details(request):
     if request.method == "POST":
         uname = request.user.username
-        image = request.FILES["image"]
+        image = request.FILES.get("image", None)    
         name = request.POST["name"]
         college = request.POST["college"]
         year = request.POST["year"]
         department = request.POST["department"]
+        community = request.POST["community"]
         website = request.POST["website"]
         github = request.POST["github"]
         instagram = request.POST["instagram"]
@@ -81,6 +91,7 @@ def details(request):
         p.year_studying_in = year
         p.department=department
         p.website = website
+        p.community = community
         if image:
             p.image = image
         p.github=github
@@ -89,7 +100,6 @@ def details(request):
         p.twiiter= twitter
         p.save()
         return redirect(reverse(profile))
-       
     else:
         username = request.user.username
         person = Person.objects.get(uname = username)
@@ -100,10 +110,10 @@ def details(request):
 @login_required
 def add(request):
     if request.method == "POST":
-        username = request.user.username
+        uname = request.user.username
+        person = Person.objects.get(uname = uname)
         blog = request.POST["post"]
-        post = Blog.objects.create(uname = username, post = blog)
-        post.save()
+        p = Blog.objects.create(uname=uname, post=blog, community=person.community).save()
         return redirect(reverse(home, args=[request.user.username]))
     return render(request, "afterlogin/add.html", {
         "username":request.user.username
@@ -156,8 +166,10 @@ def signup_view(request):
             user = User.objects.create_user(username, email, password)
             person = Person.objects.create(uname = username, name=name, email = email)
             person.save()
-            return render(request, "beforelogin/login.html", {
-                "message": "User created Successfully."
+            user = authenticate(request, username=username, password=password)
+            login(request, user)
+            return redirect(reverse(details), {
+                "message":"User created successfully and logined successfully"
             })    
     else:
         return render(request, 'beforelogin/signup.html')

@@ -4,6 +4,7 @@ from django.db import models
 class Blog(models.Model):
     uname = models.CharField(max_length=64)
     post = models.CharField(max_length=2000)
+    community = models.CharField(max_length=100, blank=True)
     time = models.DateTimeField(auto_now_add=True)
 
 class Person(models.Model):
@@ -18,7 +19,7 @@ class Person(models.Model):
     department = models.CharField(max_length=64, blank=True)
     year_studying_in = models.CharField(max_length=10)
     college = models.CharField(max_length=100, blank=True)
-    community = models.CharField(max_length=100, blank=True)
+    community = models.CharField(max_length=100, blank=True, default="GNDU, Amritsar")
     website = models.CharField(max_length=1000, blank=True)
     github = models.CharField(max_length=1000, blank=True)
     linkedin = models.CharField(max_length=1000, blank=True)
