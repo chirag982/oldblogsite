@@ -9,7 +9,7 @@ class Blog(models.Model):
 
 class Person(models.Model):
     uname = models.CharField(max_length=64, blank=False)
-    image = models.ImageField(upload_to = '', blank=True)
+    image = models.ImageField(upload_to = '',default='images.png', blank=True)
     name = models.CharField(max_length=64, blank=False)
     tagline = models.CharField(max_length=200, blank=True)
     bio = models.CharField(max_length=1000, blank=True)
