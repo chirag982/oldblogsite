@@ -5,9 +5,11 @@
         padding: 5px;
         text-align: center;
     }
+    
     #searchbox input {
         width: 50%;
     }
+    
     #foundpeople {
         margin-top: 1%;
         padding: 5px;
@@ -15,25 +17,23 @@
     }
 </style>
 {% endblock %} {% block content %}
-    <div id="searchbox">
-        <form method="post", action="{% url 'find' %}">
-            {% csrf_token %}
-            <input type="text" name="find" placeholder="Search UserName/Name">
-            <button>🔍</button>
-        </form>
-    </div>
-    <div id="foundpeople">
-        {% if person %}
-            <h1>Results:</h1>
-            <hr>
-            <form method="post" action="{% url 'check' %}">
-                {% csrf_token %}
-                <input type="hidden" name="check" value="{{person.uname}}">
-                <label>{{person.name}}</label>
-                <button type="submit">Go Check</button>
-            </form>
-            <hr>
-        {% endif %}
-        {{message}}
-    </div>
+<div id="searchbox">
+    <form method="post" , action="{% url 'find' %}">
+        {% csrf_token %}
+        <input type="text" name="find" placeholder="Search UserName">
+        <button>🔍</button>
+    </form>
+</div>
+<div id="foundpeople">
+    {% if person %}
+    <h1>Results:</h1>
+    <hr>
+    <form method="post" action="{% url 'check' %}">
+        {% csrf_token %}
+        <input type="hidden" name="check" value="{{person.uname}}">
+        <label>{{person.name}}</label>
+        <button type="submit">Go Check</button>
+    </form>
+    <hr> {% endif %} {{message}}
+</div>
 {% endblock %}

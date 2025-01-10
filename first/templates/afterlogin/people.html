@@ -59,6 +59,7 @@
     #button-edit {
         text-align: center;
     }
+    
     #first1 {
         text-align: center;
         color: darkcyan;
@@ -70,33 +71,49 @@
 </div>
 
 <div class="main1">
-    
+
     <div class="first-column">
         <div class="first-column-one">
             <img src="{{person.image.url}}">
             <h4>{{person.name}}</h4>
-            <p>{{person.tagline}}</p>
+
+            <form method="post" action="{% url 'follow' %}">
+                {% csrf_token %}
+                <input type="hidden" value="{{person.uname}}" name="person_to_follow">
+                <button class="btn btn-dark">Follow</button>
+            </form>
+
         </div>
         <div class="first-column-two">
             <div>
                 <b>Website</b>
-                <a href="{{person.website}}"><p>{{person.website}}</p></a>
+                <a href="{{person.website}}">
+                    <p>{{person.website}}</p>
+                </a>
             </div>
             <div>
                 <b>github</b>
-                <a href="{{person.github}}"><p>{{person.github}}</p></a>
+                <a href="{{person.github}}">
+                    <p>{{person.github}}</p>
+                </a>
             </div>
             <div>
                 <b>LinkedIn</b>
-                <a href="{{person.linkedin}}"><p>{{person.linkedin}}</p></a>
+                <a href="{{person.linkedin}}">
+                    <p>{{person.linkedin}}</p>
+                </a>
             </div>
             <div>
                 <b>Instagram</b>
-                <a href="{{person.instagram}}"><p>{{person.instagram}}</p></a>
+                <a href="{{person.instagram}}">
+                    <p>{{person.instagram}}</p>
+                </a>
             </div>
             <div>
                 <b>Twitter</b>
-                <a href="{{person.twiiter}}"><p>{{person.twiiter}}</p></a>
+                <a href="{{person.twiiter}}">
+                    <p>{{person.twiiter}}</p>
+                </a>
             </div>
         </div>
     </div>
@@ -127,5 +144,5 @@
         </div>
         <br>
     </div>
-</div>    
+</div>
 {% endblock %}

@@ -18,5 +18,6 @@ urlpatterns = [
     path("posts", views.myposts, name="myposts"),
     path("user/post/add", views.add, name="add"),
     path("profile", views.profile, name="profile"),
-    path("user/profile/update", views.details, name="details")
+    path("user/profile/update", views.details, name="details"),
+    path("community/user/found", views.follow, name="follow")
 ]

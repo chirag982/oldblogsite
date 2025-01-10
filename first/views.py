@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout, authenticate
-from .models import Blog, Person
+from .models import Blog, Person, Follower
 
 # Create your views here.
 def index(request):
@@ -41,6 +41,16 @@ def check(request):
         return redirect(reverse(find))
 
 @login_required
+def follow(request):
+    username = request.user.username
+    if request.method=="POST":
+        to_follow = request.POST["person_to_follow"]
+        p1 = Person.objects.get(uname=to_follow)
+        f = Follower.objects.get(uname = username)
+        f.follower.add(p1)
+        return redirect(reverse(community))
+
+@login_required
 def about(request):
     return render(request, "afterlogin/about.html")
 
@@ -60,12 +70,12 @@ def profile(request):
 
 @login_required
 def community(request):
-    user = request.user.username
-    person = Person.objects.get(uname = user)
-    blog = Blog.objects.filter(community = person.community).order_by('-time')
-    return render(request, "afterlogin/community.html",{
-        "person":person,
-        "blog":blog
+    username = request.user.username
+    follower = Follower.objects.get(uname=username)
+    followers_list = follower.follower.all()
+    return render(request, "afterlogin/community.html", {
+        "follower":follower,
+        "followers_list":followers_list
     })
 
 @login_required
@@ -166,6 +176,8 @@ def signup_view(request):
             user = User.objects.create_user(username, email, password)
             person = Person.objects.create(uname = username, name=name, email = email)
             person.save()
+            follower = Follower.objects.create(uname=username)
+            follower.save()
             user = authenticate(request, username=username, password=password)
             login(request, user)
             return redirect(reverse(details), {

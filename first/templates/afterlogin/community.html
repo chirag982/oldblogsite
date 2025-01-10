@@ -4,24 +4,24 @@
         text-align: center;
         color: darkcyan;
     }
+    
     #main-card-container {
         margin-left: 5%;
         margin-right: 5%;
         width: 85%;
     }
+    
     #main-card-container h6 {
         color: cadetblue;
     }
 </style>
 {% endblock %} {% block content %}
-<h1>{{person.community}}</h1>
+<h1>Will be Available soon!</h1>
 <div id="main-card-container">
-    {% for b in blog %}
-
-        <h6>{{b.uname}}</h6>
-        <p><i>{{b.post}}</i></p>
-        <label>{{b.time}}</label>
-        <hr>
+    <h3>{{follower.uname}}</h3>
+    <h6>No. of follower : {{follower.follower_number}}</h6>
+    {% for f in followers_list %}
+    <h6>{{f.uname}}</h6>
     {% endfor %}
 </div>
 {% endblock %}
