@@ -14,14 +14,29 @@
     #main-card-container h6 {
         color: cadetblue;
     }
+    
+    #main-card-container form {
+        border: 1px solid cadetblue;
+        padding: 5px;
+        background-color: cadetblue;
+        border-radius: 10px;
+    }
+    
+    #main-card-container form label {
+        font-size: large;
+    }
 </style>
 {% endblock %} {% block content %}
 <h1>Will be Available soon!</h1>
 <div id="main-card-container">
-    <h3>{{follower.uname}}</h3>
-    <h6>No. of follower : {{follower.follower_number}}</h6>
+    <h5>No. of follower : {{follower.follower_number}}</h5>
     {% for f in followers_list %}
-    <h6>{{f.uname}}</h6>
-    {% endfor %}
+    <form method="post" action="{% url 'followpost' %}">
+        {% csrf_token %}
+        <input type="hidden" value="{{ f.uname }}" name="uname">
+        <label>{{f.name}}:</label>
+        <button>View the Posts</button>
+    </form>
+    <br> {% endfor %}
 </div>
 {% endblock %}

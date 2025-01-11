@@ -79,6 +79,16 @@ def community(request):
     })
 
 @login_required
+def followpost(request):
+    if request.method == "POST":
+        uname = request.POST["uname"]
+        blog = Blog.objects.filter(uname=uname)
+        return render(request, "afterlogin/followpost.html", {
+            "blog":blog,
+            "uname":uname
+        })
+
+@login_required
 def details(request):
     if request.method == "POST":
         uname = request.user.username
