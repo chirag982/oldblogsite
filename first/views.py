@@ -27,9 +27,15 @@ def find(request):
 
 @login_required
 def people(request, check):
+    u = request.user.username
     p = Person.objects.get(uname=check)
+    try:
+        f = Follower.objects.get(uname=request.user.username, follower=p)
+    except:
+        f = None
     return render(request, "afterlogin/people.html", {
-            "person":p
+            "person":p,
+            "follower":f
         })
 
 @login_required
@@ -51,6 +57,15 @@ def follow(request):
         return redirect(reverse(community))
 
 @login_required
+def unfollow(request):
+    if request.method=="POST":
+        to_follow = request.POST["person_to_follow"]
+        p1 = Person.objects.get(uname=to_follow)
+        f = Follower.objects.get(uname=request.user.username)
+        f.follower.remove(p1)
+        return redirect(reverse(community))
+
+@login_required
 def about(request):
     return render(request, "afterlogin/about.html")
 
@@ -64,8 +79,11 @@ def logout_view(request):
 def profile(request):
     username = request.user.username
     person = Person.objects.get(uname = username)
+    following = Follower.objects.get(uname=username)
+    following_no = following.follower.count()
     return render(request, "afterlogin/profile.html", {
-        "person":person
+        "person":person,
+        "following":following_no
     })
 
 @login_required
@@ -73,9 +91,11 @@ def community(request):
     username = request.user.username
     follower = Follower.objects.get(uname=username)
     followers_list = follower.follower.all()
+    follower_no = follower.follower.count()
     return render(request, "afterlogin/community.html", {
         "follower":follower,
-        "followers_list":followers_list
+        "followers_list":followers_list,
+        "follower_no":follower_no
     })
 
 @login_required
@@ -155,7 +175,9 @@ def myposts(request):
 
 @login_required
 def feed(request):
-    return redirect(reverse(home, args=[request.user.username]))
+    u=request.user
+    print("u")
+    return redirect(reverse(home, args=[u.username]))
 
 def login_view(request):
     if request.method == "POST":

@@ -27,6 +27,11 @@
         border-radius: 40px;
     }
     
+    .first-column-one div {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
     .first-column-two {
         border: 1px solid gray;
         margin-top: 2%;
@@ -69,6 +74,7 @@
             <img src="{{person.image.url}}">
             <h4>{{person.name}}</h4>
             <p>{{person.tagline}}</p>
+            <p>Following : {{ following }}</p>    
         </div>
         <div class="first-column-two">
             <div>

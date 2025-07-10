@@ -33,7 +33,7 @@ class Follower(models.Model):
     # Whom to follow
     uname = models.CharField(max_length=64)
     follower = models.ManyToManyField(Person, blank=True)
-    follower_number = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"{self.uname} is following {self.follower_number} these many people"
+        return f"{self.uname} is following {self.follower.count()} these many people"
+    

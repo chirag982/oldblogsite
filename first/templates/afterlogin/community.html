@@ -29,7 +29,7 @@
 {% endblock %} {% block content %}
 <h1>Will be Available soon!</h1>
 <div id="main-card-container">
-    <h5>No. of follower : {{follower.follower_number}}</h5>
+    <h5>Following : {{follower_no}}</h5>
     {% for f in followers_list %}
     <form method="post" action="{% url 'followpost' %}">
         {% csrf_token %}
